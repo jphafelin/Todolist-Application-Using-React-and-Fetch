@@ -7,11 +7,6 @@ import React, { useState } from "react";
 
 const TodoList = () => {
 
-    
-      
-    
-
-    
 
     const [inputValue,setInputValue] = useState("")
     const [todos,setTodos] = useState([])
@@ -21,15 +16,6 @@ const TodoList = () => {
         redirect: 'follow'
             };
             
-      fetch("https://assets.breatheco.de/apis/fake/todos/user/jphafelin", requestOptions)
-        .then(response => response.json())
-        .then(result =>{ for(let i=0;i<result.length;i++){
-        setTodos(todos.push(result[i].label));
-      }})
-        
-        .catch(error => console.log('error', error));
-    //response.map( (item) => {setTodos((e) => [...e, item.label]);} )
-    //setTodos(todos.push(response));
     
 
     function textTask(){

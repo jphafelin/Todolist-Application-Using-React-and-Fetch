@@ -1,40 +1,41 @@
-body{
+body {
     margin-top: 100px;
-    
+
 }
 
-ul{
+ul {
     padding: 0;
     margin-bottom: 0;
 }
 
-ul li{
+ul li {
     border: 1px solid grey;
     list-style: none;
     padding: 5px;
+    color: black;
 
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
-input{
+input {
     border: none;
     width: 100%;
 }
 
-i{
+i {
     float: right;
     margin: 5px;
     color: white;
-    
+
 }
 
-i:hover{
+i:hover {
     color: black;
 }
 
-#divPrincipal{
-   width: 80%; 
+#divPrincipal {
+    width: 80%;
 }
