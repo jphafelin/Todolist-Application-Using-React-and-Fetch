@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { array } from "prop-types";
+import React, { useState, useEffect } from "react";
 
 //include images into your bundle
 
@@ -10,13 +11,43 @@ const TodoList = () => {
 
     const [inputValue,setInputValue] = useState("")
     const [todos,setTodos] = useState([])
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-            };
-            
     
+    
+    const getTodos = async () => {
+        const response = await fetch("https://assets.breatheco.de/apis/fake/todos/user/jphafelin");
+        if (response.ok) {
+          const responseJSON = await response.json();
+          setTodos(responseJSON);
+        }
+      };
+    
+      useEffect(() => {
+        getTodos();
+      }, []);
+
+
+
+    useEffect(async () => {
+        const url = "https://assets.breatheco.de/apis/fake/todos/user/jphafelin";
+        const request = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(todos),
+        };
+        if (request.body.length > 2) {
+            const response = await fetch(url, request);
+            if (response.ok) {
+                const responseJSON = await response.json();
+                console.log("todo ok");
+            } else {
+                console.log('error', error);
+            }
+        }
+
+    }, [todos])
+
 
     function textTask(){
         if (todos.length == 0){
@@ -46,14 +77,16 @@ const TodoList = () => {
                 value={inputValue}
                 onKeyPress={(e)=>{
                     if(e.key === "Enter" && inputValue != ""){
-                        setTodos(todos.concat(inputValue));
+                        let todo = {label: inputValue, done: false}
+                        setTodos(todos.concat(todo));
                         setInputValue("");
 
                     }}}
                 placeholder="What do you need to do" /></li>
                 {todos.map((item, index) => (
-                    <li>
-                        {item} <i className="far fa-trash-alt" onClick={()=>setTodos(todos.filter((t, currentIndex)=> index != currentIndex))}></i> 
+    
+                    <li key={index}>
+                        {item.label} <i className="far fa-trash-alt" onClick={()=>setTodos(todos.filter((t, currentIndex)=> index != currentIndex))}></i> 
                     </li>
                 ))}
                 
